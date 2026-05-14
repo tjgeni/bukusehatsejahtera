@@ -383,10 +383,232 @@
                 flex: 1;
             }
         }
+
+        /* FILTER TABS */
+        .filter-tabs {
+            display: flex;
+            gap: .8rem;
+            overflow-x: auto;
+            padding-bottom: .2rem;
+            margin-bottom: 1.6rem;
+            scrollbar-width: none;
+        }
+
+        .filter-tabs::-webkit-scrollbar {
+            display: none;
+        }
+
+        /* TAB */
+        .filter-tab {
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            gap: .7rem;
+            padding: .85rem 1rem;
+            border-radius: 16px;
+            text-decoration: none;
+            border: 1px solid transparent;
+            background: #fff;
+            font-size: .9rem;
+            font-weight: 700;
+            transition: .2s ease;
+            box-shadow:
+                0 4px 14px rgba(15, 23, 42, .04);
+        }
+
+        .filter-tab:hover {
+            transform: translateY(-2px);
+            box-shadow:
+                0 10px 22px rgba(15, 23, 42, .08);
+        }
+
+        .filter-tab i {
+            font-size: 1rem;
+        }
+
+        /* COUNT */
+        .tab-count {
+            min-width: 28px;
+            height: 28px;
+            padding: 0 .65rem;
+            border-radius: 999px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, .22);
+            font-size: .75rem;
+            font-weight: 800;
+            backdrop-filter: blur(4px);
+        }
+
+        /* ALL */
+        .filter-all {
+            background: rgba(139, 92, 246, .08);
+            color: #7c3aed;
+        }
+
+        .filter-all.active {
+            background:
+                linear-gradient(135deg,
+                    #7c3aed,
+                    #a855f7);
+
+            color: #fff;
+            box-shadow:
+                0 12px 24px rgba(124, 58, 237, .22);
+        }
+
+        /* PENDING */
+        .filter-pending {
+            background: rgba(245, 158, 11, .08);
+            color: #d97706;
+        }
+
+        .filter-pending.active {
+            background:
+                linear-gradient(135deg,
+                    #f59e0b,
+                    #fbbf24);
+            color: #fff;
+            box-shadow:
+                0 12px 24px rgba(245, 158, 11, .22);
+        }
+
+        /* PROCESS */
+        .filter-process {
+            background: rgba(59, 130, 246, .08);
+            color: #2563eb;
+        }
+
+        .filter-process.active {
+            background:
+                linear-gradient(135deg,
+                    #2563eb,
+                    #3b82f6);
+            color: #fff;
+            box-shadow:
+                0 12px 24px rgba(59, 130, 246, .22);
+        }
+
+        /* SEND */
+        .filter-send {
+            background: rgba(14, 165, 233, .08);
+            color: #0891b2;
+        }
+
+        .filter-send.active {
+            background:
+                linear-gradient(135deg,
+                    #0891b2,
+                    #06b6d4);
+            color: #fff;
+            box-shadow:
+                0 12px 24px rgba(14, 165, 233, .22);
+        }
+
+        /* DONE */
+        .filter-done {
+            background: rgba(34, 197, 94, .08);
+            color: #16a34a;
+        }
+
+        .filter-done.active {
+            background:
+                linear-gradient(135deg,
+                    #16a34a,
+                    #22c55e);
+
+            color: #fff;
+
+            box-shadow:
+                0 12px 24px rgba(34, 197, 94, .22);
+        }
     </style>
 @endpush
 
 @section('content')
+
+
+    <div class="filter-tabs">
+
+        <a href="{{ route('admin.orders.index', [
+            'search' => request('search'),
+        ]) }}"
+            class="filter-tab filter-all {{ !request('status') ? 'active' : '' }}">
+
+            <i class="bi bi-grid"></i>
+
+            <span>Semua</span>
+
+            <div class="tab-count">
+                {{ $orderCounts->sum() }}
+            </div>
+
+        </a>
+
+        <a href="{{ route('admin.orders.index', [
+            'status' => 'pending',
+            'search' => request('search'),
+        ]) }}"
+            class="filter-tab filter-pending {{ request('status') == 'pending' ? 'active' : '' }}">
+
+            <i class="bi bi-clock-history"></i>
+
+            <span>Pending</span>
+
+            <div class="tab-count">
+                {{ $orderCounts['pending'] ?? 0 }}
+            </div>
+
+        </a>
+
+        <a href="{{ route('admin.orders.index', [
+            'status' => 'diproses',
+            'search' => request('search'),
+        ]) }}"
+            class="filter-tab filter-process {{ request('status') == 'diproses' ? 'active' : '' }}">
+
+            <i class="bi bi-gear"></i>
+
+            <span>Diproses</span>
+
+            <div class="tab-count">
+                {{ $orderCounts['diproses'] ?? 0 }}
+            </div>
+
+        </a>
+
+        <a href="{{ route('admin.orders.index', [
+            'status' => 'dikirim',
+            'search' => request('search'),
+        ]) }}"
+            class="filter-tab filter-send {{ request('status') == 'dikirim' ? 'active' : '' }}">
+
+            <i class="bi bi-truck"></i>
+
+            <span>Dikirim</span>
+
+            <div class="tab-count">
+                {{ $orderCounts['dikirim'] ?? 0 }}
+            </div>
+
+        </a>
+
+        <a href="{{ route('admin.orders.index', [
+            'status' => 'selesai',
+            'search' => request('search'),
+        ]) }}"
+            class="filter-tab filter-done {{ request('status') == 'selesai' ? 'active' : '' }}">
+
+            <i class="bi bi-check-circle"></i>
+            <span>Selesai</span>
+            <div class="tab-count">
+                {{ $orderCounts['selesai'] ?? 0 }}
+            </div>
+
+        </a>
+
+    </div>
 
     <div class="page-card">
         <div class="page-card-header">
@@ -400,33 +622,13 @@
             </div>
 
             <form method="GET" action="{{ route('admin.orders.index') }}" class="filter-form">
+                <input type="hidden" name="status" value="{{ request('status') }}">
 
-                {{-- SEARCH --}}
                 <div class="filter-search">
-
                     <i class="bi bi-search"></i>
-
                     <input type="text" name="search" value="{{ request('search') }}"
                         placeholder="Cari order / nama customer">
-
                 </div>
-
-                {{-- STATUS --}}
-                <select name="status" class="filter-select">
-                    <option value="">Semua Status</option>
-                    <option value="pending" {{ request('status') == 'pending' ? 'selected' : '' }}>
-                        Pending
-                    </option>
-                    <option value="diproses" {{ request('status') == 'diproses' ? 'selected' : '' }}>
-                        Diproses
-                    </option>
-                    <option value="dikirim" {{ request('status') == 'dikirim' ? 'selected' : '' }}>
-                        Dikirim
-                    </option>
-                    <option value="selesai" {{ request('status') == 'selesai' ? 'selected' : '' }}>
-                        Selesai
-                    </option>
-                </select>
 
                 <button type="submit" class="btn-filter">
                     <i class="bi bi-funnel me-1"></i>
