@@ -10,6 +10,14 @@ class CartItem extends Model
 {
     use SoftDeletes;
 
+    protected $fillable = [
+        'product_id',
+        'cart_id',
+        'quantity',
+        'created_by',
+        'updated_by',
+    ];
+
     public function cart(): BelongsTo
     {
         return $this->belongsTo(Cart::class);

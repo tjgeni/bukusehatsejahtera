@@ -301,6 +301,11 @@
                 color: #D97706;
             }
 
+            .status-shipping {
+                background: #E0F2FE;
+                color: #0369A1;
+            }
+
             .status-success {
                 background: rgba(16, 185, 129, .12);
                 color: #059669;
@@ -473,7 +478,6 @@
         </div>
 
         @if ($latest_total_orders->count())
-
             <div class="table-responsive">
                 <table class="dashboard-table">
                     <thead>
@@ -491,7 +495,7 @@
                             <tr>
                                 <td>
                                     <span class="order-id">
-                                        #{{ $order->id }}
+                                        {{ $order->order_number }}
                                     </span>
                                 </td>
 
@@ -526,13 +530,17 @@
                                         <span class="status-badge status-pending">
                                             Pending
                                         </span>
-                                    @elseif($order->status == 'completed')
-                                        <span class="status-badge status-success">
-                                            Selesai
-                                        </span>
-                                    @else
+                                    @elseif($order->status == 'diproses')
                                         <span class="status-badge status-process">
                                             Diproses
+                                        </span>
+                                    @elseif($order->status == 'dikirim')
+                                        <span class="status-badge status-shipping">
+                                            Dikirim
+                                        </span>
+                                    @else
+                                        <span class="status-badge status-success">
+                                            Selesai
                                         </span>
                                     @endif
                                 </td>

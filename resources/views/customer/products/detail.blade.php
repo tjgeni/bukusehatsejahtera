@@ -398,10 +398,13 @@
 
                         <div class="product-actions">
 
-                            <a href="#" class="btn-purple">
-                                <i class="bi bi-cart-plus-fill"></i>
-                                Tambah ke Keranjang
-                            </a>
+                            <form method="POST" action="{{ route('cart.add', $product) }}">
+                                @csrf
+                                <button type="submit" class="btn-purple">
+                                    <i class="bi bi-cart-plus-fill"></i>
+                                    Tambah ke Keranjang
+                                </button>
+                            </form>
 
                             <a href="/products" class="btn-outline-soft">
                                 <i class="bi bi-arrow-left"></i>

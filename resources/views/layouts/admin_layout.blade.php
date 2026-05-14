@@ -13,19 +13,14 @@
             --primary: #7C3AED;
             --primary-light: #8B5CF6;
             --primary-soft: #F5F3FF;
-
             --surface: #FFFFFF;
             --surface-2: #FCFBFF;
-
             --border: #ECE8F6;
-
             --text: #1E1B39;
             --text-muted: #9CA3AF;
             --text-subtle: #B6B0C7;
-
             --shadow:
                 0 10px 30px rgba(124, 58, 237, .06);
-
             --shadow-soft:
                 0 4px 18px rgba(124, 58, 237, .05);
         }
@@ -54,41 +49,29 @@
         .sidebar {
             width: 228px;
             height: 100vh;
-
             background: rgba(255, 255, 255, .94);
             backdrop-filter: blur(12px);
-
             border-right: 1px solid var(--border);
-
             position: fixed;
             top: 0;
             left: 0;
-
             display: flex;
             flex-direction: column;
-
             z-index: 100;
-
             box-shadow: var(--shadow-soft);
-
             overflow: hidden;
         }
 
         .sidebar-brand {
             padding: 16px 18px;
-
             border-bottom: 1px solid var(--border);
-
             font-weight: 700;
             font-size: .93rem;
-
             color: var(--text);
             text-decoration: none;
-
             display: flex;
             align-items: center;
             gap: 8px;
-
             letter-spacing: -.02em;
         }
 
@@ -110,13 +93,9 @@
             font-size: .62rem;
             font-weight: 700;
             letter-spacing: .08em;
-
             color: var(--text-subtle);
-
             text-transform: uppercase;
-
             padding: 10px 18px 5px;
-
             margin-bottom: 2px;
         }
 
@@ -124,22 +103,15 @@
             display: flex;
             align-items: center;
             gap: 10px;
-
             margin: 2px 10px;
             padding: 9px 12px;
-
             font-size: .82rem;
             font-weight: 500;
-
             color: #6F6A86;
             text-decoration: none;
-
             border-radius: 10px;
-
             transition: .18s ease;
-
             position: relative;
-
             min-height: 40px;
         }
 
@@ -160,17 +132,12 @@
 
         .sidebar-link.active::before {
             content: '';
-
             position: absolute;
-
             left: -10px;
             top: 7px;
             bottom: 7px;
-
             width: 3px;
-
             background: var(--primary);
-
             border-radius: 999px;
         }
 
@@ -181,14 +148,10 @@
 
         .sidebar-badge {
             margin-left: auto;
-
             font-size: .58rem;
             font-weight: 700;
-
             padding: 2px 6px;
-
             border-radius: 999px;
-
             background: var(--primary-soft);
             color: var(--primary);
         }
@@ -308,42 +271,29 @@
         /* BUTTONS */
         .btn-logout {
             width: 100%;
-
             border: 1px solid var(--border);
-
             background: #fff;
-
             color: #6F6A86;
-
             border-radius: 12px;
-
             padding: .7rem .9rem;
-
             font-size: .84rem;
             font-weight: 600;
-
             transition: .18s ease;
         }
 
         .btn-logout:hover {
             border-color: rgba(124, 58, 237, .2);
-
             background: var(--primary-soft);
-
             color: var(--primary);
         }
 
         /* MOBILE */
         .sidebar-overlay {
             display: none;
-
             position: fixed;
             inset: 0;
-
             background: rgba(16, 10, 40, .35);
-
             backdrop-filter: blur(2px);
-
             z-index: 99;
         }
 
@@ -383,21 +333,15 @@
             border: 1px solid #E9DDFD;
             background: #fff;
             color: #7C3AED;
-
             min-width: 38px;
             height: 38px;
-
             display: flex;
             align-items: center;
             justify-content: center;
-
             border-radius: 12px !important;
-
             font-size: .84rem;
             font-weight: 600;
-
             transition: .18s ease;
-
             box-shadow: none;
         }
 
@@ -405,7 +349,6 @@
             background: #F5F3FF;
             border-color: #C4B5FD;
             color: #6D28D9;
-
             transform: translateY(-1px);
         }
 
@@ -426,6 +369,36 @@
 
         .page-link:focus {
             box-shadow: 0 0 0 4px rgba(124, 58, 237, .12);
+        }
+
+        .alert-purple {
+            background:
+                linear-gradient(135deg,
+                    rgba(124, 58, 237, .10),
+                    rgba(139, 92, 246, .08));
+
+            border: 1px solid rgba(124, 58, 237, .14);
+            color: #6D28D9;
+            border-radius: 18px;
+            padding: 15px 18px;
+            font-size: .84rem;
+            font-weight: 600;
+            box-shadow:
+                0 10px 24px rgba(124, 58, 237, .06);
+        }
+
+        .alert-purple .bi {
+            font-size: 1rem;
+            color: var(--primary);
+        }
+
+        .alert-purple .btn-close {
+            box-shadow: none;
+            opacity: .55;
+        }
+
+        .alert-purple .btn-close:hover {
+            opacity: 1;
         }
     </style>
     @stack('styles')
@@ -468,9 +441,6 @@
             <a href="{{ route('admin.orders.index') }}"
                 class="sidebar-link {{ request()->routeIs('admin.orders.*') ? 'active' : '' }}">
                 <i class="bi bi-bag"></i> Pesanan
-                @if (isset($pendingOrderCount) && $pendingOrderCount > 0)
-                    <span class="sidebar-badge bg-warning text-dark">{{ $pendingOrderCount }}</span>
-                @endif
             </a>
 
             <p class="sidebar-label">Lainnya</p>
@@ -481,6 +451,13 @@
                 @if (isset($unreadMessageCount) && $unreadMessageCount > 0)
                     <span class="sidebar-badge bg-danger text-white">{{ $unreadMessageCount }}</span>
                 @endif
+            </a>
+
+
+            <a href="{{ route('admin.customers.index') }}"
+                class="sidebar-link {{ request()->routeIs('admin.customers.*') ? 'active' : '' }}">
+                <i class="bi bi-people"></i> Pengguna
+
             </a>
 
         </nav>
@@ -497,7 +474,7 @@
             </div>
             <form method="POST" action="{{ route('logout') }}">
                 @csrf
-                <button type="submit" class="btn btn-sm btn-outline-secondary w-100" style="font-size: 0.8rem;">
+                <button type="submit" class="btn btn-logout w-100" style="font-size: 0.8rem;">
                     <i class="bi bi-box-arrow-right me-1"></i> Logout
                 </button>
             </form>
@@ -524,8 +501,13 @@
         {{-- Flash messages --}}
         <div class="px-4 pt-3">
             @if (session('success'))
-                <div class="alert alert-success alert-dismissible fade show" role="alert">
-                    <i class="bi bi-check-circle me-2"></i>{{ session('success') }}
+                <div class="alert alert-purple alert-dismissible fade show" role="alert">
+                    <div class="d-flex align-items-center">
+                        <i class="bi bi-check-circle-fill me-2"></i>
+                        <span>
+                            {{ session('success') }}
+                        </span>
+                    </div>
                     <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                 </div>
             @endif

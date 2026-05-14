@@ -357,6 +357,36 @@
         .page-link:focus {
             box-shadow: 0 0 0 4px rgba(124, 58, 237, .12);
         }
+
+        .alert-purple {
+            background:
+                linear-gradient(135deg,
+                    rgba(124, 58, 237, .10),
+                    rgba(139, 92, 246, .08));
+
+            border: 1px solid rgba(124, 58, 237, .14);
+            color: #6D28D9;
+            border-radius: 18px;
+            padding: 15px 18px;
+            font-size: .84rem;
+            font-weight: 600;
+            box-shadow:
+                0 10px 24px rgba(124, 58, 237, .06);
+        }
+
+        .alert-purple .bi {
+            font-size: 1rem;
+            color: var(--primary);
+        }
+
+        .alert-purple .btn-close {
+            box-shadow: none;
+            opacity: .55;
+        }
+
+        .alert-purple .btn-close:hover {
+            opacity: 1;
+        }
     </style>
     @stack('styles')
 </head>
@@ -396,11 +426,12 @@
             <div class="nav-right d-flex align-items-center gap-3">
 
                 @auth
-                    {{-- Cart --}}
-                    <a href="{{ route('cart.index') }}" class="cart-icon-wrap">
-                        <i class="bi bi-cart3"></i>
+                    <a href="{{ route('cart.index') }}" class="position-relative">
+                        <i class="bi bi-cart3 fs-5" style="color:#7C3AED;"></i>
                         @if (isset($cartCount) && $cartCount > 0)
-                            <span class="cart-badge">{{ $cartCount }}</span>
+                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                                {{ $cartCount }}
+                            </span>
                         @endif
                     </a>
 
@@ -462,8 +493,13 @@
     {{-- Flash Messages --}}
     <div class="container mt-3">
         @if (session('success'))
-            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                <i class="bi bi-check-circle me-2"></i>{{ session('success') }}
+            <div class="alert alert-purple alert-dismissible fade show" role="alert">
+                <div class="d-flex align-items-center">
+                    <i class="bi bi-check-circle-fill me-1"></i>
+                    <span>
+                        {{ session('success') }}
+                    </span>
+                </div>
                 <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
             </div>
         @endif

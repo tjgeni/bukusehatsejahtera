@@ -21,7 +21,7 @@ class DashboardController extends Controller
         $total_done_orders = Order::where('status', 'selesai')->count();
 
         $latest_total_orders = Order::with('user')
-            ->select('id', 'user_id', 'total_price', 'address', 'phone', 'status')
+            ->select('id', 'user_id', 'order_number', 'total_price', 'address', 'phone', 'status', 'created_at')
             ->latest()
             ->take(5)
             ->get();

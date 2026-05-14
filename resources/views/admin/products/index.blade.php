@@ -316,8 +316,13 @@
 
                                 {{-- IMAGE --}}
                                 <td>
-                                    <img src="{{ $image }}" class="product-image" alt="{{ $product->name }}"
-                                        onerror="this.src='https://dummyimage.com/600x800/e5e7eb/6b7280&text=No+Image'">
+                                    @if ($product->image)
+                                        <img src="{{ asset('storage/' . $product->image) }}" class="product-image"
+                                            alt="{{ $product->name }}">
+                                    @else
+                                        <img src="https://dummyimage.com/300x450/e9d5ff/7c3aed&text=No+Image"
+                                            class="product-image" alt="No image">
+                                    @endif
                                 </td>
 
                                 {{-- PRODUCT --}}

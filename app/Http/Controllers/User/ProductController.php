@@ -11,16 +11,15 @@ class ProductController extends Controller
 {
     public function index(Request $request)
     {
-        $query = Product::with('category')->where('stock', '>', 0);
-        // Search by keyword
-        if ($request->filled('search')) {
-            $query->where('name', 'like', '%'.$request->search.'%');
-        }
-        // Filter by category
-        if ($request->filled('category')) {
-            $query->where('category_id', $request->category);
-        }
-        $products = $query->latest()->paginate(12)->withQueryString();
+        $products = Product::select('id', 'name', 'price', 'stock', 'image', 'description', 'category_id')
+            ->with('category:id,name')
+            ->where('stock', '>', 0)
+            ->when($request->search, fn ($q, $search) => $q->where('name', 'like', "%{$search}%"))
+            ->when($request->category, fn ($q, $category) => $q->where('category_id', $category))
+            ->latest()
+            ->paginate(12)
+            ->withQueryString();
+
         $categories = Category::all();
 
         return view('customer.products.index', compact('products', 'categories'));
@@ -28,7 +27,6 @@ class ProductController extends Controller
 
     public function detail(Product $product)
     {
-        // Produk terkait dari kategori yang sama
         $related = Product::where('category_id', $product->category_id)->where('id', '!=', $product->id)
             ->where('stock', '>', 0)
             ->take(4)

@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->id()->generatedAs()->always();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->string('order_number');
             $table->bigInteger('total_price');
             $table->text('address');
             $table->string('phone');

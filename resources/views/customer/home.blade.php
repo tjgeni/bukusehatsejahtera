@@ -227,7 +227,7 @@
             overflow: hidden;
         }
 
-        /* BACKGROUNDS */
+        /* BACKGROUND VARIANTS */
         .cover-blue {
             background:
                 linear-gradient(135deg,
@@ -256,7 +256,7 @@
                     rgba(192, 132, 252, .04));
         }
 
-        /* BOOK IMAGE */
+        /* IMAGE */
         .book-image {
             width: 92px;
             height: 132px;
@@ -277,7 +277,7 @@
                 rotate(-2deg) scale(1.03);
         }
 
-        /* FALLBACK SPINE */
+        /* FALLBACK */
         .book-spine {
             width: 92px;
             height: 132px;
@@ -322,78 +322,70 @@
             padding: 1rem;
         }
 
+        .book-category {
+            display: inline-flex;
+            align-items: center;
+            background:
+                rgba(124, 58, 237, .08);
+            color: #7C3AED;
+            border-radius: 999px;
+            padding: .35rem .75rem;
+            font-size: .7rem;
+            font-weight: 700;
+            margin-bottom: .8rem;
+        }
+
         .book-title {
             font-size: .92rem;
             font-weight: 700;
-
             color: #24143A;
-
             line-height: 1.45;
-
             margin-bottom: .4rem;
-
             min-height: 44px;
         }
 
-        .book-author {
+        .book-description {
             font-size: .78rem;
-
             color: #7A728F;
-
             line-height: 1.6;
-
-            min-height: 20px;
-
+            min-height: 42px;
             margin-bottom: 1rem;
         }
 
         /* FOOTER */
         .book-footer {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-
             margin-bottom: .9rem;
         }
 
         .book-price {
             font-size: .92rem;
             font-weight: 800;
-
             color: #7C3AED;
         }
 
         /* BUTTON */
-        .btn-detail-book {
+        .btn-detail {
             width: 100%;
-
             display: flex;
             align-items: center;
             justify-content: center;
             gap: .55rem;
-
             background:
                 linear-gradient(135deg,
                     #7C3AED,
                     #A855F7);
-
             color: #fff;
             text-decoration: none;
-
             border-radius: 14px;
-
             padding: .78rem 1rem;
-
             font-size: .82rem;
             font-weight: 700;
-
             transition: .2s ease;
-
             box-shadow:
                 0 10px 22px rgba(124, 58, 237, .16);
         }
 
-        .btn-detail-book:hover {
+        .btn-detail:hover {
             transform: translateY(-2px);
 
             color: #fff;
@@ -402,40 +394,29 @@
                 0 16px 30px rgba(124, 58, 237, .24);
         }
 
-        .btn-detail-book i {
+        .btn-detail i {
             transition: transform .18s ease;
         }
 
-        .btn-detail-book:hover i {
+        .btn-detail:hover i {
             transform: translateX(4px);
         }
 
         .btn-keranjang {
             flex: 1;
-
             background: var(--primary-soft);
-
             border: 1px solid transparent;
-
             border-radius: 12px;
-
             font-size: .8rem;
             font-weight: 700;
-
             color: var(--primary);
-
             padding: .52rem .6rem;
-
             display: flex;
             align-items: center;
             justify-content: center;
-
             gap: .35rem;
-
             cursor: pointer;
-
             transition: .18s ease;
-
             text-decoration: none;
         }
 
@@ -515,15 +496,6 @@
         </div>
     </div>
 
-    {{-- Category Filter Pills --}}
-    <div class="category-pills">
-        <a href="{{ route('home') }}" class="pill {{ !request('kategori') ? 'active' : '' }}">Semua</a>
-        @foreach (['Fiksi', 'Non-fiksi', 'Sains', 'Sejarah'] as $kat)
-            <a href="{{ route('home', ['kategori' => $kat]) }}"
-                class="pill {{ request('kategori') === $kat ? 'active' : '' }}">{{ $kat }}</a>
-        @endforeach
-    </div>
-
     {{-- Book Grid --}}
     <h2 class="section-title">Buku tersedia</h2>
 
@@ -545,46 +517,44 @@
                     $spine = $spineColors[$i % 4];
                 @endphp
 
-                <div class="col-6 col-sm-4 col-md-3">
+                <div class="col-6 col-md-4 col-lg-3">
                     <div class="book-card">
-
-                        {{-- Cover --}}
                         <div class="book-cover {{ $bg }}">
 
                             @if ($product->image)
-                                <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}"
-                                    class="book-image">
+                                <img src="{{ asset('storage/' . $product->image) }}" class="book-image"
+                                    alt="{{ $product->name }}">
                             @else
                                 <div class="book-spine {{ $spine }}"></div>
                             @endif
 
                         </div>
 
-                        {{-- Body --}}
+                        {{-- BODY --}}
                         <div class="book-card-body">
+                            <div class="book-category">
+                                {{ $product->category->name ?? 'Kategori' }}
+                            </div>
 
                             <div class="book-title">
                                 {{ Str::limit($product->name, 38) }}
                             </div>
 
-                            <div class="book-author">
+                            <div class="book-description">
                                 {{ Str::limit($product->description, 60) }}
                             </div>
 
                             <div class="book-footer">
-                                <span class="book-price">
+                                <div class="book-price">
                                     Rp {{ number_format($product->price, 0, ',', '.') }}
-                                </span>
+                                </div>
                             </div>
 
-                            {{-- Button --}}
-                            <a href="{{ route('products.detail', $product->id) }}" class="btn-detail-book">
+                            <a href="{{ route('products.detail', $product->id) }}" class="btn-detail">
                                 <span>Lihat Detail</span>
                                 <i class="bi bi-arrow-right"></i>
                             </a>
-
                         </div>
-
                     </div>
                 </div>
             @endforeach

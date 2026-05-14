@@ -19,6 +19,7 @@ return new class extends Migration
             $table->timestamps();
             $table->string('created_by', length: 255)->nullable();
             $table->string('updated_by', length: 255)->nullable();
+            $table->softDeletes('deleted_at');
         });
     }
 

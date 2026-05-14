@@ -8,6 +8,12 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Cart extends Model
 {
+    protected $fillable = [
+        'user_id',
+        'created_by',
+        'updated_by',
+    ];
+
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\AdminOrderController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\CustomerController;
 use App\Http\Controllers\Admin\MessageController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\AuthController;
@@ -9,6 +10,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\User\AboutController;
 use App\Http\Controllers\User\CartController;
+use App\Http\Controllers\User\CheckoutController;
 use App\Http\Controllers\User\ContactController;
 use App\Http\Controllers\User\OrderController;
 use App\Http\Controllers\User\ProductController as UserProductController;
@@ -40,11 +42,19 @@ Route::middleware(['auth', 'customer'])->group(function () {
     Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
 
     Route::get('/products', [UserProductController::class, 'index'])->name('products.index');
-    Route::get('/produk/{product}', [UserProductController::class, 'detail'])->name('products.detail');
+    Route::get('/products/{product}', [UserProductController::class, 'detail'])->name('products.detail');
 
     Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
+    Route::post('/cart/add/{product}', [CartController::class, 'add'])->name('cart.add');
+    Route::delete('cart/delete/{cartItem}', [CartController::class, 'destroy'])->name('cart.destroy');
+    Route::patch('/cart/{cartItem}/increase', [CartController::class, 'increaseQuantity'])->name('cart.quantity.increase');
+    Route::patch('/cart/{cartItem}/decrease', [CartController::class, 'decreaseQuantity'])->name('cart.quantity.decrease');
 
     Route::get('/orders', [OrderController::class, 'index'])->name('orders.index');
+    Route::get('/orders/{order}', [OrderController::class, 'detail'])->name('orders.detail');
+
+    Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout');
+    Route::post('/checkout', [CheckoutController::class, 'process'])->name('checkout.process');
 });
 
 // admin
@@ -55,4 +65,8 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     Route::get('/messages', [MessageController::class, 'index'])->name('messages.index');
 
     Route::get('/orders', [AdminOrderController::class, 'index'])->name('orders.index');
+    Route::get('/orders/{order}', [AdminOrderController::class, 'detail'])->name('orders.detail');
+    Route::patch('/orders/{order}', [AdminOrderController::class, 'changeOrderStatus'])->name('orders.update-status');
+
+    Route::get('/customers', [CustomerController::class, 'index'])->name('customers.index');
 });

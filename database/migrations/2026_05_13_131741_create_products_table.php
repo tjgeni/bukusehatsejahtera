@@ -19,6 +19,7 @@ return new class extends Migration
             $table->bigInteger('price')->default(0);
             $table->integer('stock')->default(0);
             $table->string('image')->nullable();
+            $table->string('status')->default('Tersedia');
             $table->timestamps();
             $table->string('created_by', length: 255)->nullable();
             $table->string('updated_by', length: 255)->nullable();
