@@ -404,7 +404,6 @@
                 </a>
             </div>
 
-            {{-- Center: Nav links (hidden on mobile) --}}
             <div class="nav-center d-none d-lg-flex">
                 <ul class="navbar-nav flex-row gap-1">
                     <li class="nav-item">
@@ -472,21 +471,7 @@
                         style="font-size:0.82rem;">Login</a>
                     <a href="{{ route('register') }}" class="btn btn-sm btn-dark" style="font-size:0.82rem;">Daftar</a>
                 @endauth
-
-                {{-- Mobile: hamburger --}}
-                <div class="dropdown d-lg-none">
-                    <button class="nav-dots-btn" data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="bi bi-list fs-5"></i>
-                    </button>
-                    <ul class="dropdown-menu dropdown-menu-end">
-                        <li><a class="dropdown-item" href="{{ route('home') }}">Beranda</a></li>
-                        <li><a class="dropdown-item" href="{{ route('about') }}">About</a></li>
-                        <li><a class="dropdown-item" href="{{ route('contact') }}">Kontak</a></li>
-                    </ul>
-                </div>
-
             </div>
-
         </div>
     </nav>
 

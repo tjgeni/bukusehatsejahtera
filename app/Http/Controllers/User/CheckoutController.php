@@ -24,11 +24,13 @@ class CheckoutController extends Controller
 
     public function process(Request $request)
     {
+        // kita validasi dulu inputan dari user di FE
         $request->validate([
             'phone' => 'required|string|max:20',
             'address' => 'required|string',
         ]);
 
+        // kemudian, cek dulu di keranjang apakah ada produk yang ditaruh atau tidak
         $cart = Cart::where('user_id', Auth::id())
             ->with('cartItems.product')
             ->first();
@@ -38,6 +40,9 @@ class CheckoutController extends Controller
                 ->with('error', 'Keranjang kamu kosong!');
         }
 
+        // kalo ada produk, lanjutkan proses checkout menggunakan DB transaction
+        //  kalo ada error, transaksi bisa dirollback
+        // misalkan order sudah dibuat, tapi order item tidak dapat dibuat maka order akan dirollback
         try {
             DB::transaction(function () use ($cart, $request) {
                 $total = $cart->cartItems->sum(

@@ -56,3 +56,15 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+# Tentang
+Ini merupakan aplikasi toko buku sederhana yang bernama Buku Sehat Sejahtera. para bookish dapat melihat-lihat deretan buku, kemudian bisa melakukan pembelian buku juga.. tidak hanya itu jika ada kendala dalam hal apapun kamu dapat menghubungi admin toko Buku Sehat Sejahtera, admin siap untuk membalas pesan kalian. Yuk belanja buku dengan mudah!
+
+## Cara menjalankan project Buku Sehat Sejahtera
+1. Clone project ini menggunakan link berikut: https://{personal_token_github}@github.com/tjgeni/bukusehatsejahtera.git
+2. Pastikan kamu sudah menginstall XAMPP, minimal PHP versi 8.3++, Composer, serta laravel di local system masing-masing.
+3. Setelah project terunduh, siapkan file .env dan isi di bagian DB_CONNECTION dengan koneksi db local kamu, dalam hal ini kita menggunakan MySQL.
+4. Lalu jalankan perintah `php artisan migrate --seed` di terminal, beberapa file seeder dijalankan secara terpisah menggunakan perintah `php artisan db seed --class='NamaSeederFile'`
+5. Lalu, jalankan perintah `composer install` untuk menginstall library yang sudah ada, dan `npm install` + `npm run dev` untuk menginstall asset frontend.
+6. Tetelah semuanya selesai, kamu dapat menjalankan project ini menggunakan perintah `php artisaan serve` atau `composer run dev`
+7. Voila, project Buku Sehat Sejahtera running di localhost:8000 🎊🎊
