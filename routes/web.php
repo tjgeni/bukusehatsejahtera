@@ -20,7 +20,7 @@ Route::get('/', function () {
     if (! Auth::check()) {
         return redirect('/login');
     }
-    if (Auth::user()->role() === 'admin') {
+    if (Auth::user()->role === 'admin') {
         return redirect('/admin/dashboard');
     }
 
