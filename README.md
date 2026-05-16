@@ -60,6 +60,18 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 # Tentang
 Ini merupakan aplikasi toko buku sederhana yang bernama Buku Sehat Sejahtera. para bookish dapat melihat-lihat deretan buku, kemudian bisa melakukan pembelian buku juga.. tidak hanya itu jika ada kendala dalam hal apapun kamu dapat menghubungi admin toko Buku Sehat Sejahtera, admin siap untuk membalas pesan kalian. Yuk belanja buku dengan mudah!
 
+# Struktur Project
+1. folder app: berisikan Controller, Models, Providers hingga Middleware. yang berfungsi untuk menyimpan proses bisnis, definisi struktur model dan konigurasi aplikasi melalui provider.
+2. folder config: berisikan file-file konfigurasi dari laravel yang bisa kita sesuaikan dengan kebutuhan.
+3. folder database: semua hal yang berhubungan dengan database seperti migrasi, seeder hingga factories disimpan di folder ini.
+4. folder public: berisikan asset-asset public seperti file gambar atau file lainnya yang bisa diakses oleh browser.
+5. folder resources: tempat menyimpan semua file yang berhubungan dengan frontend atau cliend side, seperti views (blade), css, dan js.
+6. folder routes: tempat menyimpan semua routing dari aplikasi.
+7. folder storage: tempat menyimpan semua file hasil upload dari user, selain itu ada logs dari laravel yang juga disimpan di sini.
+8. folder tests: tempat menyimpan file-file untuk kebutuhan pengujian aplikasi.
+9. folder vendor: berisikan semua library-library yang diinstall melalui perintah composer install.
+10. file file lainnya seperti .env, .gitignore, package.json merupakan file yang dibutuhkan untuk menyimpan list library, menyimpan konfigurasi aplikasi.
+
 ## Cara menjalankan project Buku Sehat Sejahtera
 1. Clone project ini menggunakan link berikut: https://{personal_token_github}@github.com/tjgeni/bukusehatsejahtera.git
 2. Pastikan kamu sudah menginstall XAMPP, minimal PHP versi 8.3++, Composer, serta laravel di local system masing-masing.
